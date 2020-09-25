@@ -1,0 +1,42 @@
+1) SELECT Nome FROM SALE WHERE Citta = 'Pisa'
+
+
+2)SElect Titolo FROM FILM WHERE Regista = 'F. Fellini' AND AnnoProduzione > 1960
+
+3)SElect Titolo, Durata FROM FILM WHERE Genere = 'Fantascienza' AND AnnoProduzione > 1990 AND (Nazionalita = 'Francese' OR Nazionalita= 'Giapponese')
+
+4)SElect Titolo 
+FROM FILM 
+WHERE Genere = 'Fantascienza' 
+AND AnnoProduzione > 1990
+AND Nazionalita='Giapponese'
+OR 
+(Nazionalita = 'Francese' AND Genere= 'Fantascienza')
+
+5)SElect Titolo 
+FROM FILM 
+WHERE Regista=(SELECT Regista FROM FILM WHere Titolo='Casablanca')
+
+
+6)SElect Titolo , Genere
+FROM FILM f, PROIEZIONI p
+WHERE p.DataProiezione= CAST('2004-12-25' as DATE)
+AND p.CodFilm = f.CodFilm
+
+
+7)SElect Titolo , Genere
+FROM FILM f, PROIEZIONI p, SALE s
+WHERE p.DataProiezione= CAST('2004-12-25' as DATE)
+AND s.Citta='Napoli'
+AND s.CodSala = p.CodSala
+AND p.CodFilm = f.CodFilm
+
+8)Select s.Nome
+From film f, proiezioni p , sale s, attori a, recita r
+where p.DataProiezione= CAST('2004-12-25' AS DATE)
+AND s.Citta='Napoli'
+AND s.CodSala = p.CodSala
+AND p.CodFilm = f.CodFilm
+AND a.Nome ='R.Williams'
+AND a.CodAttore = r.CodAttore
+AND r.CodFilm = f.CodFilm
