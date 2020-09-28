@@ -1,6 +1,5 @@
 1) SELECT Nome FROM SALE WHERE Citta = 'Pisa'
 
-
 2)SElect Titolo FROM FILM WHERE Regista = 'F. Fellini' AND AnnoProduzione > 1960
 
 3)SElect Titolo, Durata FROM FILM WHERE Genere = 'Fantascienza' AND AnnoProduzione > 1990 AND (Nazionalita = 'Francese' OR Nazionalita= 'Giapponese')
@@ -40,3 +39,44 @@ AND p.CodFilm = f.CodFilm
 AND a.Nome ='R.Williams'
 AND a.CodAttore = r.CodAttore
 AND r.CodFilm = f.CodFilm
+
+9)SELECT f.Titolo 
+FROM FILM f, RECITA r, ATTORI a
+WHERE f.CodFilm=r.CodFilm
+AND (a.Nome='M.Mastroianni' OR a.Nome='S.Loren')
+AND a.CodAttore=r.CodAttore
+
+10) SELECT DISTINCT F.Titolo
+FROM ATTORI A, RECITA R, FILM F
+WHERE A.Nome ='M.Mastroianni'
+AND A.CodAttore = R.CodAttore
+AND R.CodFilm IN (SELECT R.CodFilm FROM Attori A, Recita R WHERE A.Nome = 'S.Loren' AND A.CodAttore = R.CodAttore)
+AND R.CodFilm=F.CodFilm
+
+
+11)SELECT f.Titolo, a.Nome
+FROM FILM f, RECITA r, ATTORI a
+WHERE a.CodAttore = r.CodAttore
+AND a.Nazionalita='Francese'
+AND f.CodFilm=r.CodFilm
+
+12)NON FUNZIONA
+SELECT f.Titolo, s.Nome
+FROM FILM f, SALA s, PROIEZIONI p
+WHERE s.Citta = 'Pisa'
+AND s.CodSala = p.CodSala
+AND (p.DataProiezione > CAST('2005-1-1' as DATE) AND p.DataProiezione < CAST('2005-1-31' as DATE) 
+AND f.CodFilm = p.CodFilm
+
+13)SELECT COUNT(CodSala)
+FROM SALE
+WHERE Citta='Pisa'
+AND Posti>60
+
+14)SELECT SUM(Posti)
+FROM SALE
+WHERE Citta='Pisa'
+
+15)SELECT Citta, Count(CodSala)
+FROM SALE
+GROUP BY Citta
